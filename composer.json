@@ -1,0 +1,19 @@
+{
+    "name": "arthu/projet-php",
+    "description": "Projet php BUT 2",
+    "authors": [
+        {
+            "name": "Arthur Bourgoin",
+            "email": "arthur_bourgoin@orange.fr"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Config\\": "config/"
+        }
+    },
+    "require": {
+        "altorouter/altorouter": "^2.0"
+    }
+}
