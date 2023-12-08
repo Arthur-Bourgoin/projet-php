@@ -13,7 +13,7 @@
     <?= isset($scripts) ? $scripts : "" ?>
     <title><?= isset($title) ? $title : "Titre" ?></title>
 </head>
-<body>
+<body class="vh-100 d-flex flex-column">
     <header class="">
         <div class="container">
             <div class="row bg-secondary">
@@ -22,11 +22,11 @@
         </div>
     </header>
     <main>
-        <div class="container">
+        <div class="container p-0">
             <?= isset($content) ? $content : "Contenu de la page." ?>
         </div>
     </main>
-    <footer>
+    <footer class="mt-auto">
         <div class="container">
             <div class="row bg-secondary">
                 <h1 class="text-center">FOOTER</h1>

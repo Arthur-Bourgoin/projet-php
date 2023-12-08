@@ -6,8 +6,10 @@ class Controller {
 
     public function listUsers() {
         $users = UserModel::getUsers();
-        var_dump($users);
-        //require("../app/views/listUsers.php");
+        if(!is_array($users)) {
+            $error = $users;
+        }
+        require("../app/views/listUsers.php");
     }
 
     public function listDoctors() {
