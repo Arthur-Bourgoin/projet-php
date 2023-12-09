@@ -3,7 +3,7 @@ namespace App\Class;
 
 class User {
 
-    public $id;
+    public $idUser;
     public $picturePath;
     public $secuNumber;
     public $civility;
@@ -17,7 +17,7 @@ class User {
     public $referringDoctor;
 
     public function __construct(object $obj) {
-        $this->id = $obj->idUsager;
+        $this->idUser = $obj->idUsager;
         $this->picturePath = $obj->photo;
         $this->secuNumber = $obj->nir;
         $this->civility = $obj->civilite;
@@ -34,7 +34,7 @@ class User {
     public function getCard() {
         ob_start(); ?>
         <div class="col-4">
-            <div class="divUser row position-relative m-0 border rounded" data-id="<?= $this->id ?>">
+            <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
                 <div class="col-2 p-2" data-bs-toggle="modal" data-bs-target="#modal-modif">
                     <img src="assets/images/<?= $this->picturePath ?>" class="rounded-circle card-img-top" alt="photo de profil">
                 </div>
@@ -46,8 +46,9 @@ class User {
                     </div>
                 </div>
                 <div class="col-1 p-0 d-flex justify-content-center align-items-center">
-                    <form action="other" method="POST">
-                        <input type="hidden" name="id" value="<?= $this->id ?>">
+                    <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST">
+                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="idUser" value="<?= $this->idUser ?>">
                         <button class="btn btn-primary p-1"><i class="bi bi-trash"></i></button>
                     </form>
                 </div>

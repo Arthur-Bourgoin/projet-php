@@ -14,7 +14,7 @@
     <title><?= isset($title) ? $title : "Titre" ?></title>
 </head>
 <body class="vh-100 d-flex flex-column">
-    <header class="">
+    <header class="mb-4">
         <div class="container">
             <div class="row bg-secondary">
                 <h1 class="text-center">HEADER</h1>

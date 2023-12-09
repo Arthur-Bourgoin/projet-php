@@ -5,20 +5,36 @@ import { User } from "./class/User.js";
         return;
     const users = new Map();
     usersPHP.forEach(user => {
-        users.set(user.id, new User(user));
+        users.set(user.idUser, new User(user));
     });
 
     document.querySelectorAll(".divUser").forEach(divUser => {
-        const user = users.get(parseInt(divUser.dataset.id));        
+        const user = users.get(parseInt(divUser.dataset.idUser));        
         divUser.addEventListener("click", e => {
             user.updateModal();
         });
-    });
-
-    document.querySelectorAll(".divUser button").forEach(btn => {
-        btn.addEventListener("click", e => {
-            if(!confirm("Voulez vous vraiment supprimer cet utilisateur ?"))
+        divUser.querySelector("button").addEventListener("click", e => {
+            if(!confirm("Confirmation de la suppression (Tous les RDV associés seront également supprimés)."))
                 e.preventDefault();
         });
     });
 })();
+
+document.querySelector("#mbody-name div:nth-of-type(1) input").addEventListener("click", e => {
+    e.preventDefault();
+    e.currentTarget.value === "Mr." ? e.currentTarget.value = "Mme." : e.currentTarget.value = "Mr.";
+});
+
+const divAlert = document.querySelector(".alert");
+if(divAlert) {
+    setTimeout(() => {
+        divAlert.style.opacity = 1;
+        const interval = setInterval(() => {
+            divAlert.style.opacity -= 0.01;
+            if(divAlert.style.opacity <= 0) {
+                clearInterval(interval);
+                divAlert.remove();
+            }
+        }, 10);
+    }, 5000);
+}
