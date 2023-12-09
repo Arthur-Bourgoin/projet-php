@@ -38,7 +38,36 @@ CREATE TABLE RDV(
    duree INT,
    idUsager INT NOT NULL,
    PRIMARY KEY(idMedecin, dateHeureDebut),
-   FOREIGN KEY(idMedecin) REFERENCES Medecin(idMedecin),
-   FOREIGN KEY(idUsager) REFERENCES Usager(idUsager)
+   FOREIGN KEY(idMedecin) REFERENCES Medecin(idMedecin) ON DELETE CASCADE,
+   FOREIGN KEY(idUsager) REFERENCES Usager(idUsager) ON DELETE CASCADE
 ) ENGINE = InnoDB;
+
+DELIMITER //
+CREATE TRIGGER tbi_usager_transformIdMedecin
+BEFORE INSERT
+ON usager
+FOR EACH ROW
+BEGIN
+   IF NEW.idMedecin = 0 THEN
+      SET NEW.idMedecin = null;
+   END IF;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER tbu_usager_transformIdMedecin
+BEFORE UPDATE
+ON usager
+FOR EACH ROW
+BEGIN
+   IF NEW.idMedecin = 0 THEN
+      SET NEW.idMedecin = null;
+   END IF;
+END;
+//
+DELIMITER ;
+
+
+
 
