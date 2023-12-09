@@ -3,17 +3,20 @@ namespace Config;
 
 class Database {
 
-    private static $server = "localhost";
-    private static $db = "projectPHP";
-    private static $login = "userProjectPHP";
-    private static $pwd = "pwdproject";
+    const SERVER = "localhost";
+    const DB = "projectPHP";
+    const LOGIN = "userProjectPHP";
+    const PWD = "pwdproject";
     private static $linkpdo = null;
 
     private function __construct() {}
 
     public static function getInstance(): \PDO {
-        if(self::$linkpdo === null)
-            self::$linkpdo = new \PDO("mysql:host=" . self::$server . ";dbname=" . self::$db, self::$login, self::$pwd);
+        if(self::$linkpdo === null) {
+            self::$linkpdo = new \PDO("mysql:host=" . self::SERVER . ";dbname=" . self::DB, self::LOGIN, self::PWD);
+            self::$linkpdo->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+            self::$linkpdo->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_OBJ);
+        }
         return self::$linkpdo;
     }
 
