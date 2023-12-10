@@ -22,25 +22,26 @@ class UserController {
     }
 
     public function addUser() {
-
+        if(!$this->verifUser()) {
+            $error = 5;
+        } else {
+            $error = UserModel::addUser($_POST);
+        }
+        $this->displayTemplate($error, $error===0 ? 3 : 0);
     }
 
     public function updateUser() {
-        $error = 0;
-        if(!$this->verifUpdateUser()) {
+        if(!$this->verifUser()) {
             $error = 2;
         } else {
             $_POST["civility"] = $_POST["civility"] === "Mr." ? "M" : "F";
-            if(!UserModel::updateUser($_POST))
-                $error = 3;
+            $error = UserModel::updateUser($_POST);
         }
         $this->displayTemplate($error, $error===0 ? 1 : 0);
     }
 
     public function deleteUser() {
-        $error = 0;
-        if(!UserModel::deleteUser($_POST["idUser"]))
-            $error = 4;
+        $error = UserModel::deleteUser($_POST["idUser"]);
         $this->displayTemplate($error, $error===0 ? 2 : 0);
     }
 
@@ -54,9 +55,9 @@ class UserController {
         require("../app/views/listUsers.php");
     }
 
-    private function verifUpdateUser() {
+    private function verifUser() {
         if(
-            !isset($_POST["idUser"]) ||
+            //!isset($_POST["idUser"]) ||
             !isset($_POST["civility"]) ||
             !isset($_POST["lastName"]) ||
             !isset($_POST["firstName"]) ||
@@ -69,7 +70,7 @@ class UserController {
             !isset($_POST["idDoctor"])
         )
             return false;
-        if($_POST["civility"]!=="Mr." && $_POST["civility"]!=="Mme.")
+        if($_POST["civility"]!=="Mr." && $_POST["civility"]!=="Mme." && $_POST["civility"]!=="M" && $_POST["civility"]!=="F")
             return false;
         if(!ctype_digit($_POST["secuNumber"]) || strlen($_POST["secuNumber"])!==15)
             return false;

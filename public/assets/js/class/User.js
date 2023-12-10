@@ -24,7 +24,7 @@ export class User {
         }
     }
 
-    updateModal() {
+    updateModalModif() {
         const modal = document.querySelector("#modal-modif");
         console.log(this.idUser);
         modal.querySelector("#idUser").value = this.idUser;

@@ -11,7 +11,7 @@ import { User } from "./class/User.js";
     document.querySelectorAll(".divUser").forEach(divUser => {
         const user = users.get(parseInt(divUser.dataset.idUser));        
         divUser.addEventListener("click", e => {
-            user.updateModal();
+            user.updateModalModif();
         });
         divUser.querySelector("button").addEventListener("click", e => {
             if(!confirm("Confirmation de la suppression (Tous les RDV associés seront également supprimés)."))
@@ -38,3 +38,7 @@ if(divAlert) {
         }, 10);
     }, 5000);
 }
+
+document.querySelector("#modal-add .modal-footer button:nth-child(1)").addEventListener("click", e => {
+    document.querySelector("#modal-add form").reset();
+});
