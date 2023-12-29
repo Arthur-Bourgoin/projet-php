@@ -4,69 +4,51 @@ use App\Models\ {
     UserModel,
     DoctorModel
 };
-
-/*
-ERRORS:
-0: OK
-1: error init list user
-2: error update user, datas not valid
-3: error update user, error PDO query
-4: error delete user
-
-*/
+use App\Class\Feedback;
 
 class UserController {
 
     public function listUsers() {
-        $this->displayTemplate(0, 0);
+        $users = UserModel::getUsers();
+        $doctors = DoctorModel::getDoctors();
+        require("../app/views/listUsers.php");
     }
 
     public function addUser() {
-        if(!$this->verifUser()) {
-            $error = 5;
-        } else {
-            $error = UserModel::addUser($_POST);
-        }
-        $this->displayTemplate($error, $error===0 ? 3 : 0);
+        if(!$this->verifUser())
+            Feedback::setError("Les informations de l'utilisateur ne sont pas valides.");
+        else
+            UserModel::addUser($_POST);
     }
 
     public function updateUser() {
-        if(!$this->verifUser()) {
-            $error = 2;
+        if(!$this->verifUser() || empty($_POST["idUser"])) {
+            Feedback::setError("Erreur, les informations de l'usager ne sont pas valides.");
         } else {
             $_POST["civility"] = $_POST["civility"] === "Mr." ? "M" : "F";
-            $error = UserModel::updateUser($_POST);
+            UserModel::updateUser($_POST);
         }
-        $this->displayTemplate($error, $error===0 ? 1 : 0);
     }
 
     public function deleteUser() {
-        $error = UserModel::deleteUser($_POST["idUser"]);
-        $this->displayTemplate($error, $error===0 ? 2 : 0);
-    }
-
-    private function displayTemplate(int $p_error, int $p_success) {
-        $error = $p_error;
-        $success = $p_success;
-        $users = UserModel::getUsers();
-        $doctors = DoctorModel::getDoctors();
-        if(!is_array($users) || !is_array($doctors)) 
-            $error = 1;
-        require("../app/views/listUsers.php");
+        if(!empty($_POST["idUser"]))
+            UserModel::deleteUser($_POST["idUser"]);
+        else
+            Feedback::setError("Erreur, aucun utilisateur à supprimer.");
     }
 
     private function verifUser() {
         if(
-            //!isset($_POST["idUser"]) ||
-            !isset($_POST["civility"]) ||
-            !isset($_POST["lastName"]) ||
-            !isset($_POST["firstName"]) ||
-            !isset($_POST["birthDate"]) ||
-            !isset($_POST["birthPlace"]) ||
-            !isset($_POST["secuNumber"]) ||
-            !isset($_POST["postalCode"]) ||
-            !isset($_POST["city"]) ||
-            !isset($_POST["address"]) ||
+            //empty($_POST["idUser"]) ||
+            empty($_POST["civility"]) ||
+            empty($_POST["lastName"]) ||
+            empty($_POST["firstName"]) ||
+            empty($_POST["birthDate"]) ||
+            empty($_POST["birthPlace"]) ||
+            empty($_POST["secuNumber"]) ||
+            empty($_POST["postalCode"]) ||
+            empty($_POST["city"]) ||
+            empty($_POST["address"]) ||
             !isset($_POST["idDoctor"])
         )
             return false;

@@ -6,6 +6,8 @@ use App\Controllers\ {
     DoctorController
 };
 
+session_start();
+
 $router = new AltoRouter();
 
 $router->map("GET", "/usagers", function () {
@@ -20,16 +22,17 @@ $router->map("POST", "/usagers", function () {
     $controller = new UserController();
     if(isset($_POST["action"])) {
         switch($_POST["action"]) {
-            case "add":
+            case "addUser":
                 $controller->addUser();
                 break;
-            case "update":
+            case "updateUser":
                 $controller->updateUser();
                 break;
-            case "delete":
+            case "deleteUser":
                 $controller->deleteUser();
                 break;
         }
+        header("Location: " . $_SERVER["REQUEST_URI"]);
     } else {
         $controller->listUsers();
     }

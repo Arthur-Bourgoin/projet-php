@@ -5,8 +5,10 @@ class Database {
 
     const SERVER = "localhost";
     const DB = "projectPHP";
-    const LOGIN = "userProjectPHP";
-    const PWD = "pwdproject";
+    const LOGIN = "root";
+    const PWD = "iutinfoROOT";
+    //const LOGIN = "userProjectPHP";
+    //const PWD = "pwdproject";
     private static $linkpdo = null;
 
     private function __construct() {}

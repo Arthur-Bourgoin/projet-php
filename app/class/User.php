@@ -3,6 +3,8 @@ namespace App\Class;
 
 class User {
 
+    const PATH = "/assets/images/users/";
+
     public $idUser;
     public $picturePath;
     public $secuNumber;
@@ -18,7 +20,7 @@ class User {
 
     public function __construct(object $obj) {
         $this->idUser = $obj->idUsager;
-        $this->picturePath = $obj->photo;
+        $this->picturePath = self::PATH . $obj->photo;
         $this->secuNumber = $obj->nir;
         $this->civility = $obj->civilite;
         $this->lastName = $obj->nom;
@@ -36,7 +38,7 @@ class User {
         <div class="col-4">
             <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
                 <div class="col-2 p-2" data-bs-toggle="modal" data-bs-target="#modal-modif">
-                    <img src="assets/images/<?= $this->picturePath ?>" class="rounded-circle card-img-top" alt="photo de profil">
+                    <img src="<?= $this->picturePath ?>" class="rounded-circle w-100" alt="photo de profil">
                 </div>
                 <div class="col-9 p-1 d-flex flex-column justify-content-evenly" data-bs-toggle="modal" data-bs-target="#modal-modif">
                     <div><?= ($this->civility==="M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?></div>
@@ -47,7 +49,7 @@ class User {
                 </div>
                 <div class="col-1 p-0 d-flex justify-content-center align-items-center">
                     <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST">
-                        <input type="hidden" name="action" value="delete">
+                        <input type="hidden" name="action" value="deleteUser">
                         <input type="hidden" name="idUser" value="<?= $this->idUser ?>">
                         <button class="btn btn-primary p-1"><i class="bi bi-trash"></i></button>
                     </form>

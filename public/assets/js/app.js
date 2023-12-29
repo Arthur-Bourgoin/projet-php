@@ -39,6 +39,6 @@ if(divAlert) {
     }, 5000);
 }
 
-document.querySelector("#modal-add .modal-footer button:nth-child(1)").addEventListener("click", e => {
+document.querySelector("#btn-newUser").addEventListener("click", e => {
     document.querySelector("#modal-add form").reset();
 });

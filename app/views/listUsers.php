@@ -9,43 +9,23 @@ ob_start();
         background-color: #ececec;
     }
 </style>
+<?= \App\Class\Feedback::getMessage() ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Liste des usagers</h1>
     <div>
-        <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add">
+        <button id="btn-newUser" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add">
             <i class="bi bi-person-plus-fill me-2"></i>ajouter usager
         </button>
     </div>
 </div>
 <?php
-switch($error) {
-    case 1:
-        echo '<div class="alert alert-danger my-3" role="alert">Une erreur s\'est produite lors de l\'initialisation de la page.</div>'; break;
-    case 2:
-        echo '<div class="alert alert-danger my-3" role="alert">Mise à jour impossible, les données ne sont pas valides.</div>'; break;
-    case 3:
-        echo '<div class="alert alert-danger my-3" role="alert">Une erreur s\'est produite lors de la modification de l\'usager.</div>'; break;
-    case 4:
-        echo '<div class="alert alert-danger my-3" role="alert">Une erreur s\'est produite lors de la suppression de l\'usager.</div>'; break;
-    case 5:
-        echo '<div class="alert alert-danger my-3" role="alert">Ajout impossible, les données ne sont pas valides.</div>'; break;
-    case 6:
-        echo '<div class="alert alert-danger my-3" role="alert">Ajout impossible, l\'usager existe déjà.</div>'; break;
-    case 7:
-        echo '<div class="alert alert-danger my-3" role="alert">Une erreur s\'est produite lors de l\'ajout de l\'usager.</div>'; break;
-}
-switch($success) {
-    case 1:
-        echo '<div class="alert alert-success my-3" role="alert">Modifications enregistrées.</div>'; break;
-    case 2:
-        echo '<div class="alert alert-success my-3" role="alert">Suppression enregistrée.</div>'; break;
-    case 3:
-        echo '<div class="alert alert-success my-3" role="alert">Ajout enregistré.</div>'; break;
-}
+
 if(is_array($users)) {
     echo '<div class="row g-3">';
-    foreach($users as $user) {
-        echo $user->getCard();
+    if(is_array($users)) {
+        foreach($users as $user) {
+            echo $user->getCard();
+        }
     }
     echo '</div>';
 }
@@ -55,7 +35,7 @@ if(is_array($users)) {
 <div class="modal fade" id="modal-modif" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
   <div class="modal-dialog">
   <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST">
-    <input type="hidden" name="action" value="update">
+    <input type="hidden" name="action" value="updateUser">
     <input id="idUser" name="idUser" type="hidden">
     <div class="modal-content">
       <div class="modal-header">
@@ -138,7 +118,7 @@ if(is_array($users)) {
 <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
   <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST">
-    <input type="hidden" name="action" value="add">
+    <input type="hidden" name="action" value="addUser">
     <div class="modal-content">
       <div class="modal-header">
         <h1 class="modal-title fs-5" id="exampleModalLabel">Ajout d'un usager</h1>
@@ -147,8 +127,10 @@ if(is_array($users)) {
       <div class="modal-body px-4 py-3">
         <div class="row">
             <div class="col-3">
-                <label for="picturePath"><img src="/assets/images/users/user0.png" class="w-100" alt="photo de profil"></label>
-                <input id="picturePath" name="picturePath" type="file" class="d-none">
+                <label for="picturePath">
+                    <img src="/assets/images/users/user0.png" class="w-100" style="cursor: pointer;" alt="photo de profil">
+                </label>
+                <input id="picturePath" name="picture" type="file" class="d-none">
             </div>
             <div class="col-7 d-flex flex-column justify-content-evenly">
                 <div class="row">
@@ -242,7 +224,7 @@ if(is_array($users)) {
         </button>
       </div>
     </div>
-  </div>
+  </form>
   </div>
 </div>
 

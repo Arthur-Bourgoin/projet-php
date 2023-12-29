@@ -1,7 +1,10 @@
 <?php
 namespace App\Models;
 use Config\Database;
-use App\Class\Doctor;
+use App\Class\ {
+    Doctor,
+    Feedback
+};
 
 class DoctorModel {
 
@@ -14,7 +17,7 @@ class DoctorModel {
             }
             return $doctors;
         } catch (\Exception $e) {
-            return false;
+            Feedback::setError("Une erreur s'est produite lors du chargement de la page.");
         } finally {
             if(!empty($res))
                 $res->closeCursor();
