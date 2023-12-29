@@ -37,6 +37,15 @@ $router->map("POST", "/usagers", function () {
         $controller->listUsers();
     }
 });
+$router->map("GET", "/consultations", function () {
+    echo "page consultations";
+});
+$router->map("GET", "/statistiques", function () {
+    echo "page consultations";
+});
+$router->map("GET", "/disconnect", function () {
+    echo "page consultations";
+});
 
 
 $match = $router->match();

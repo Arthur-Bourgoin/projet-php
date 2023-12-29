@@ -19,6 +19,34 @@
             <div class="row bg-secondary">
                 <h1 class="text-center">HEADER</h1>
             </div>
+            <div class="row">
+                <nav class="navbar navbar-expand bg-body-tertiary">
+                    <div class="container-fluid">
+                        <ul class="navbar-nav me-auto">
+                            <li class="nav-item">
+                                <a class="nav-link active" href="/usagers"><i class="bi bi-person me-2"></i>Usagers</a>
+                            </li>
+                            <div class="vr mx-3"></div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/medecins"><i class="bi bi-heart-pulse me-2"></i>Médecins</a>
+                            </li>
+                            <div class="vr mx-3"></div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/consultations"><i class="bi bi-calendar me-2"></i>Consultations</a>
+                            </li>
+                            <div class="vr mx-3"></div>
+                            <li class="nav-item">
+                                <a class="nav-link" href="/statistiques"><i class="bi bi-graph-up me-2"></i>Statistiques</a>
+                            </li>
+                        </ul>
+                        <a href="/disconnect">
+                            <button class="btn btn-danger">
+                                <i class="bi bi-power me-2"></i>Se déconnecter
+                            </button>
+                        </a>
+                    </div>
+                </nav>
+            </div>
         </div>
     </header>
     <main>
