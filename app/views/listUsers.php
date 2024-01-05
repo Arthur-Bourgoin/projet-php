@@ -1,7 +1,6 @@
 <?php
 $title = "Usagers";
-$bsIcons = true;
-$scripts = "<script src='/assets/js/app.js' type='module'></script>";
+$scripts = "<script src='/assets/js/users.js' type='module'></script>";
 ob_start();
 ?>
 <style>
@@ -14,7 +13,7 @@ ob_start();
     <h1>Liste des usagers</h1>
     <div>
         <button id="btn-newUser" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add">
-            <i class="bi bi-person-plus-fill me-2"></i>ajouter usager
+            <i class="bi bi-person-plus-fill me-2"></i>nouveau
         </button>
     </div>
 </div>
@@ -22,10 +21,8 @@ ob_start();
 
 if(is_array($users)) {
     echo '<div class="row g-3">';
-    if(is_array($users)) {
-        foreach($users as $user) {
-            echo $user->getCard();
-        }
+    foreach($users as $user) {
+        echo $user->getCard();
     }
     echo '</div>';
 }

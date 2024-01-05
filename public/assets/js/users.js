@@ -1,4 +1,8 @@
 import { User } from "./class/User.js";
+import { updateNavBar, removeDivFeedback } from "./functions.js";
+
+updateNavBar();
+removeDivFeedback();
 
 (function initScript() {
     if(!Array.isArray(usersPHP))
@@ -24,20 +28,6 @@ document.querySelector("#mbody-name div:nth-of-type(1) input").addEventListener(
     e.preventDefault();
     e.currentTarget.value === "Mr." ? e.currentTarget.value = "Mme." : e.currentTarget.value = "Mr.";
 });
-
-const divAlert = document.querySelector(".alert");
-if(divAlert) {
-    setTimeout(() => {
-        divAlert.style.opacity = 1;
-        const interval = setInterval(() => {
-            divAlert.style.opacity -= 0.01;
-            if(divAlert.style.opacity <= 0) {
-                clearInterval(interval);
-                divAlert.remove();
-            }
-        }, 10);
-    }, 5000);
-}
 
 document.querySelector("#btn-newUser").addEventListener("click", e => {
     document.querySelector("#modal-add form").reset();

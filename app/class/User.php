@@ -34,7 +34,8 @@ class User {
     }
 
     public function getCard() {
-        ob_start(); ?>
+        ob_start();
+        ?>
         <div class="col-4">
             <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
                 <div class="col-2 p-2" data-bs-toggle="modal" data-bs-target="#modal-modif">
