@@ -5,11 +5,16 @@ export class Doctor {
     civility;
     lastName;
     firstName;
+    duration;
     
     constructor(obj) {
         for (const property in this) {
             this[property] = obj[property];
         }
+    }
+
+    getLegend() {
+        return this.lastName + " " + this.firstName;
     }
 
     updateModal() {

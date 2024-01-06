@@ -1,5 +1,6 @@
 <?php
 namespace App\Class;
+use App\Models\DoctorModel;
 
 class Doctor {
 
@@ -10,6 +11,7 @@ class Doctor {
     public $lastName;
     public $firstName;
     public $picturePath;
+    public $duration;
 
     public function __construct(object $obj) {
         $this->idDoctor = $obj->idMedecin;
@@ -17,10 +19,29 @@ class Doctor {
         $this->lastName = $obj->nom;
         $this->firstName = $obj->prenom;
         $this->picture = self::PATH . $obj->photo;
+        $this->duration = null;
     }
 
     public function getOption() {
         return "<option value='$this->idDoctor'>" . ($this->civility === "M" ? "Mr." : "Mme") . " " . $this->lastName . " " . $this->firstName . "</option>";
+    }
+
+    public function getLineTab() {
+        $this->duration = DoctorModel::getDurationRdv($this->idDoctor);
+        $formattedDuration = rtrim(rtrim($this->duration, '0'), '.');
+        ob_start();
+        ?>
+        <tr>
+            <td class="d-flex align-items-center">
+                <div class="m-1 me-3" style="height: 40px;">
+                    <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100">
+                </div>
+                <?= ($this->civility === "M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?>
+            </td>
+            <td class="align-middle"><?= (empty($formattedDuration) ? "0" : $formattedDuration) . ($this->duration <=1 ? " heure" : " heures") ?></td>
+        </tr>
+        <?php
+        return ob_get_clean();
     }
 
     public function getCard() {
@@ -28,7 +49,7 @@ class Doctor {
         ?>
         <div class="col-3">
             <div class="d-flex flex-column align-items-center border rounded p-3">
-                <div class="d-flex w-50" style="height: 150px;">
+                <div class="d-flex justify-content-center w-50" style="height: 150px;">
                     <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100" alt="Photo de profil">
                 </div>
                 <div class="my-3">

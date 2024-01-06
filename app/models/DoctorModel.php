@@ -39,6 +39,21 @@ class DoctorModel {
         }
     }
 
+    public static function getDurationRdv(int $idDoctor) {
+        try {
+            if(!self::existDoctor($idDoctor)) {
+                Feedback::setError("Une erreur s'est produite lors du chargement des graphiques.");
+                return;
+            }
+            $res = Database::getInstance()->prepare("SELECT sum(duree)/60 as duree FROM rdv WHERE idMedecin = :id");
+            $res->execute(array("id" => $idDoctor));
+            $duration = $res->fetch()->duree;
+            return $duration ? $duration : 0;
+        } catch (\Exception $e) {
+            Feedback::setError("Une erreur s'est produite lors du chargement des graphiques.");
+        }
+    }
+
     public static function addDoctor(array $args) {
         try {
             Database::getInstance()
@@ -61,8 +76,9 @@ class DoctorModel {
                 ->prepare("UPDATE medecin
                             SET civilite = :civility,
                                 nom = :lastName,
-                                prenom = :firstName")
-                ->execute(array_intersect_key($args, array_flip(["civility", "lastName", "firstName"])));
+                                prenom = :firstName
+                            WHERE idMedecin = :idDoctor")
+                ->execute(array_intersect_key($args, array_flip(["civility", "lastName", "firstName", "idDoctor"])));
             Feedback::setSuccess("Mise à jour du médecin enregistrée.");
         } catch (\Exception $e) {
             Feedback::setError("Une erreur s'est produite lors de la mise à jour de l'utilisateur.");

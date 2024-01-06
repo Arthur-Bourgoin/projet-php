@@ -15,8 +15,11 @@ document.querySelectorAll(".btnUpdateModal").forEach(btn => {
     btn.addEventListener("click", e => {
         doctors.get(parseInt(e.currentTarget.dataset.idDoctor)).updateModal();
     })
+    btn.nextElementSibling.querySelector("button").addEventListener("click", e => {
+        if(!confirm("Confirmation de la suppression (Tous les RDV associés seront également supprimés)."))
+            e.preventDefault();
+    })
 });
-console.log(doctors);
 
 document.querySelector("#btn-newDoctor").addEventListener("click", e => {
     document.querySelector("#modalAddDoctor form").reset();

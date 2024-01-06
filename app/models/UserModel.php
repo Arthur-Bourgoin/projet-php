@@ -33,7 +33,6 @@ class UserModel {
                 Feedback::setError("Ajout impossible, l'usager existe déjà.");
                 return;
             }
-            $args["picture"] = "user1.png";
             $keys = ["picture", "secuNumber", "civility", "lastName", "firstName", "city", "postalCode", "address", "birthDate", "birthPlace", "idDoctor"];
             Database::getInstance()
                 ->prepare("INSERT INTO usager (photo, nir, civilite, nom, prenom, ville, codePostal, adresse, dateNaissance, lieuNaissance, idMedecin)

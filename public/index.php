@@ -4,6 +4,7 @@ require_once("../vendor/autoload.php");
 use App\Controllers\ {
     UserController,
     DoctorController,
+    StatsController,
     ConnectionController
 };
 
@@ -86,7 +87,8 @@ $router->map("GET", "/consultations", function () {
 
 /*##########     STATISTIQUES     ##########*/
 $router->map("GET", "/statistiques", function () {
-    echo "page consultations";
+    $controller = new StatsController();
+    $controller->displayPage();
 });
 
 

@@ -4,7 +4,10 @@ use App\Models\ {
     UserModel,
     DoctorModel
 };
-use App\Class\Feedback;
+use App\Class\ {
+    Feedback,
+    UploadImg
+};
 
 class UserController {
 
@@ -15,10 +18,15 @@ class UserController {
     }
 
     public function addUser() {
-        if(!$this->verifUser())
+        if(!$this->verifUser()) {
             Feedback::setError("Les informations de l'utilisateur ne sont pas valides.");
-        else
-            UserModel::addUser($_POST);
+        } else {
+            $upload = new UploadImg($_FILES["picture"]);
+            if($upload->upload("./assets/images/users/")) {
+                $_POST["picture"] = $upload->getUniqName();
+                UserModel::addUser($_POST);
+            }
+        }
     }
 
     public function updateUser() {
@@ -39,7 +47,6 @@ class UserController {
 
     private function verifUser() {
         if(
-            //empty($_POST["idUser"]) ||
             empty($_POST["civility"]) ||
             empty($_POST["lastName"]) ||
             empty($_POST["firstName"]) ||

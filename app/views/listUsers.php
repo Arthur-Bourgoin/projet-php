@@ -41,8 +41,11 @@ if(is_array($users)) {
       </div>
       <div class="modal-body">
         <div class="row">
-            <div class="col-3">
-                <img src="" class="rounded-circle w-100" alt="Photo de profil">
+            <div class="col-3 d-flex justify-content-center" style="height: 100px;">
+                <label for="pictureUpdate" class="h-100 d-flex align-items-center">
+                    <img class="object-fit-contain mw-100 mh-100" style="cursor: pointer;" alt="photo de profil">
+                </label>
+                <input id="pictureUpdate" name="picture" type="file" class="d-none">
             </div>
             <div class="col-9 d-flex flex-column justify-content-evenly">
                 <div id="mbody-name" class="row gx-1">
@@ -114,7 +117,7 @@ if(is_array($users)) {
 <!-- Modal add -->
 <div class="modal fade" id="modal-add" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
-  <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST">
+  <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST" enctype="multipart/form-data">
     <input type="hidden" name="action" value="addUser">
     <div class="modal-content">
       <div class="modal-header">
@@ -123,11 +126,11 @@ if(is_array($users)) {
       </div>
       <div class="modal-body px-4 py-3">
         <div class="row">
-            <div class="col-3">
-                <label for="picturePath">
-                    <img src="/assets/images/users/user0.png" class="w-100" style="cursor: pointer;" alt="photo de profil">
+            <div class="col-3 d-flex justify-content-center" style="height: 120px;">
+                <label for="pictureAdd" class="h-100 d-flex align-items-center">
+                    <img src="/assets/images/users/user0.png" class="object-fit-contain mw-100 mh-100" style="cursor: pointer;" alt="photo de profil">
                 </label>
-                <input id="picturePath" name="picture" type="file" class="d-none">
+                <input id="pictureAdd" name="picture" type="file" class="d-none">
             </div>
             <div class="col-7 d-flex flex-column justify-content-evenly">
                 <div class="row">

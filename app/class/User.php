@@ -33,18 +33,22 @@ class User {
         $this->referringDoctor = $obj->idMedecin;
     }
 
+    public function getAge() {
+        return (new \DateTime())->diff(new \DateTime($this->birthDate))->y;
+    }
+
     public function getCard() {
         ob_start();
         ?>
         <div class="col-4">
             <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
-                <div class="col-2 p-2" data-bs-toggle="modal" data-bs-target="#modal-modif">
-                    <img src="<?= $this->picturePath ?>" class="rounded-circle w-100" alt="photo de profil">
+                <div class="col-2 p-2 d-flex align-items-center justify-content-center" style="height: 80px;" data-bs-toggle="modal" data-bs-target="#modal-modif">
+                    <img src="<?= $this->picturePath ?>" class="object-fit-contain mw-100 mh-100" alt="photo de profil">
                 </div>
                 <div class="col-9 p-1 d-flex flex-column justify-content-evenly" data-bs-toggle="modal" data-bs-target="#modal-modif">
                     <div><?= ($this->civility==="M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?></div>
                     <div>
-                        <span class="me-2"><i class="bi bi-calendar-event"></i><?= "  " . $this->birthDate ?></span>
+                        <span class="me-2"><i class="bi bi-calendar-event"></i><?= "  " . (new \DateTime($this->birthDate))->format('d/m/Y') ?></span>
                         <span><i class="bi bi-geo-alt"></i><?= "  " . $this->city . ", " . $this->postalCode ?></span>
                     </div>
                 </div>
