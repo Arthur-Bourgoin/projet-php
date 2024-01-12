@@ -10,7 +10,6 @@ class Doctor {
     public $civility;
     public $lastName;
     public $firstName;
-    public $picturePath;
     public $duration;
 
     public function __construct(object $obj) {
@@ -22,21 +21,39 @@ class Doctor {
         $this->duration = null;
     }
 
-    public function getOption() {
-        return "<option value='$this->idDoctor'>" . ($this->civility === "M" ? "Mr." : "Mme") . " " . $this->lastName . " " . $this->firstName . "</option>";
+    public function getOption(bool $selected) {
+        $text = ($this->civility === "M" ? "Mr." : "Mme") . " " . $this->lastName . " " . $this->firstName;
+        return "<option value='$this->idDoctor' " . ($selected ? "selected>" : ">") . $text . "</option>";
     }
 
-    public function getLineTab() {
+    public function getCellTabRdv() {
+        ob_start();
+        ?>
+        <div class="d-flex align-items-center">
+            <div class="me-2" style="height: 40px;">
+                <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100" alt="Photo de profil">
+            </div>
+            <div>
+                <?= ($this->civility === "M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
+    public function getLineTabStats() {
         $this->duration = DoctorModel::getDurationRdv($this->idDoctor);
         $formattedDuration = rtrim(rtrim($this->duration, '0'), '.');
         ob_start();
         ?>
         <tr>
-            <td class="d-flex align-items-center">
-                <div class="m-1 me-3" style="height: 40px;">
-                    <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100">
+            <td>
+                <div class="d-flex align-items-center">
+                    <div class="m-1 me-3" style="height: 40px;">
+                        <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100">
+                    </div>
+                    <?= ($this->civility === "M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?>
                 </div>
-                <?= ($this->civility === "M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?>
             </td>
             <td class="align-middle"><?= (empty($formattedDuration) ? "0" : $formattedDuration) . ($this->duration <=1 ? " heure" : " heures") ?></td>
         </tr>
@@ -56,9 +73,11 @@ class Doctor {
                     <?= ($this->civility === "M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?> 
                 </div>
                 <div class="d-flex">
-                    <button class="btn btn-primary">
-                        <i class="bi bi-person"></i>
-                    </button>
+                    <form action="/consultations" method="POST">
+                        <input type="hidden" name="action" value="filterTable">
+                        <input type="hidden" name="doctor" value="<?= $this->idDoctor ?>">
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-person"></i></button>
+                    </form>
                     <button class="btn btn-primary mx-3 btnUpdateModal" data-bs-toggle="modal" data-bs-target="#modalUpdateDoctor" data-id-doctor="<?= $this->idDoctor ?>">
                         <i class="bi bi-pencil-square"></i>
                     </button>

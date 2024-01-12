@@ -12,13 +12,30 @@ class UserModel {
     public static function getUsers() {
         try {
             $users = [];
-            $res = Database::getInstance()->query("SELECT * FROM usager");
+            $res = Database::getInstance()->query("SELECT * FROM usager ORDER BY nom");
             while ($data = $res->fetch()) {
                 $users[] = new User($data);
             }
             return $users;
         } catch (\Exception $e) {
             Feedback::setError("Une erreur s'est produite lors du chargement de la page.");
+        } finally {
+            if(!empty($res))
+                $res->closeCursor();
+        }
+    }
+
+    public static function getUser(int $id) {
+        try {
+            $res = Database::getInstance()->prepare("SELECT * FROM usager WHERE idUsager = :id");
+            $res->execute(array("id" => $id));
+            $user = $res->fetch();
+            if(!$user)
+                Feedback::setError("Erreur, l'usager n'existe pas.");
+            else
+                return new User($user);
+        } catch (\Exception $e) {
+            Feedback::setError("Une erreur s'est produite lors de la récupération de l'usager.");
         } finally {
             if(!empty($res))
                 $res->closeCursor();

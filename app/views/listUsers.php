@@ -92,7 +92,7 @@ if(is_array($users)) {
                         <?php
                         if(is_array($doctors)) {
                             foreach($doctors as $doctor) {
-                                echo $doctor->getOption();
+                                echo $doctor->getOption(false);
                             }
                         }
                         ?>
@@ -206,7 +206,7 @@ if(is_array($users)) {
                         <?php
                         if(is_array($doctors)) {
                             foreach($doctors as $doctor) {
-                                echo $doctor->getOption();
+                                echo $doctor->getOption(false);
                             }
                         }
                         ?>

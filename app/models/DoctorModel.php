@@ -11,7 +11,7 @@ class DoctorModel {
     public static function getDoctors() {
         try {
             $doctors = [];
-            $res = Database::getInstance()->query("SELECT * FROM medecin");
+            $res = Database::getInstance()->query("SELECT * FROM medecin ORDER BY nom");
             while ($data = $res->fetch()) {
                 $doctors[] = new Doctor($data);
             }
@@ -29,13 +29,15 @@ class DoctorModel {
             $res = Database::getInstance()->prepare("SELECT * FROM medecin WHERE idMedecin = :id");
             $res->execute(array("id" => $id));
             $doctor = $res->fetch();
-            if(!$doctor) {
+            if(!$doctor)
                 Feedback::setError("Erreur, le médecin n'existe pas.");
-                return;
-            }
-            return new Doctor($doctor);
+            else
+                return new Doctor($doctor);
         } catch (\Exception $e) {
             Feedback::setError("Une erreur s'est produite lors de la récupération du médecin.");
+        } finally {
+            if(!empty($res))
+                $res->closeCursor();
         }
     }
 

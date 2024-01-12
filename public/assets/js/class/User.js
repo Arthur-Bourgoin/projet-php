@@ -1,7 +1,7 @@
 export class User {
    
     idUser;
-    picturePath;
+    picture;
     secuNumber;
     civility;
     lastName;
@@ -27,7 +27,7 @@ export class User {
     updateModalModif() {
         const modal = document.querySelector("#modal-modif");
         modal.querySelector("#idUser").value = this.idUser;
-        modal.querySelector("img").src = this.picturePath;
+        modal.querySelector("img").src = this.picture;
         modal.querySelector("#mbody-name div:nth-of-type(1) input").value = this.civility === "M" ? "Mr." : "Mme.";
         modal.querySelector("#mbody-name div:nth-of-type(2) input").value = this.lastName;
         modal.querySelector("#mbody-name div:nth-of-type(3) input").value = this.firstName;

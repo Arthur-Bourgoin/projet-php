@@ -5,16 +5,23 @@ use App\Controllers\ {
     UserController,
     DoctorController,
     StatsController,
+    RdvController,
     ConnectionController
 };
 
 session_start();
 
-if(!isset($_SESSION["connected"]) && $_SERVER["REQUEST_URI"] !== "/connexion") {
-    header("Location: /connexion");
-}
+if(!isset($_SESSION["connected"]) && $_SERVER["REQUEST_URI"] !== "/connexion") header("Location: /connexion");
+if($_SERVER["REQUEST_URI"] !== "/consultations") unset($_SESSION["rdv"]);
 
 $router = new AltoRouter();
+
+$router->map("GET", "/test", function () {
+    $date = new DateTime('2023-12-06 12:30:00');
+    echo $date->format('Y-m-d H:i:s') . "</br>";
+    $date->modify('+15 minutes');
+    echo $date->format('Y-m-d H:i:s') . "</br>";
+});
 
 /*##########     CONNEXION     ##########*/
 $router->map("GET", "/connexion", function () {
@@ -31,6 +38,9 @@ $router->map("GET", "/disconnect", function () {
 });
 
 /*##########     USAGERS     ##########*/
+$router->map("GET", "/", function () {
+    header("Location: /usagers");
+});
 $router->map("GET", "/usagers", function () {
     $controller = new UserController();
     $controller->listUsers();
@@ -49,10 +59,8 @@ $router->map("POST", "/usagers", function () {
                 $controller->deleteUser();
                 break;
         }
-        header("Location: " . $_SERVER["REQUEST_URI"]);
-    } else {
-        $controller->listUsers();
     }
+    header("Location: " . $_SERVER["REQUEST_URI"]);
 });
 
 /*##########     MEDECINS     ##########*/
@@ -74,15 +82,28 @@ $router->map("POST", "/medecins", function () {
                 $controller->deleteDoctor();
                 break;
         }
-        header("Location: " . $_SERVER["REQUEST_URI"]);
-    } else {
-        $controller->listDoctors();
     }
+    header("Location: " . $_SERVER["REQUEST_URI"]);
 });
 
 /*##########     CONSULTATIONS     ##########*/
 $router->map("GET", "/consultations", function () {
-    echo "page consultations";
+    $controller = new RdvController();
+    $controller->displayPage();
+});
+$router->map("POST", "/consultations", function () {
+    $controller = new RdvController();
+    if(isset($_POST["action"])) {
+        switch($_POST["action"]) {
+            case "filterTable":
+                $controller->filterTable();
+                break;
+            case "addRdv":
+                $controller->addRdv();
+                break;
+        }
+    }
+    header("Location: " . $_SERVER["REQUEST_URI"]);
 });
 
 /*##########     STATISTIQUES     ##########*/

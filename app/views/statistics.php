@@ -81,7 +81,7 @@ ob_start();
                 <tbody>
                     <?php
                         foreach($doctors as $doctor) {
-                            echo $doctor->getLineTab();
+                            echo $doctor->getLineTabStats();
                         }
                     ?>
                 </tbody>

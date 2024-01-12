@@ -6,7 +6,7 @@ class User {
     const PATH = "/assets/images/users/";
 
     public $idUser;
-    public $picturePath;
+    public $picture;
     public $secuNumber;
     public $civility;
     public $lastName;
@@ -20,7 +20,7 @@ class User {
 
     public function __construct(object $obj) {
         $this->idUser = $obj->idUsager;
-        $this->picturePath = self::PATH . $obj->photo;
+        $this->picture = self::PATH . $obj->photo;
         $this->secuNumber = $obj->nir;
         $this->civility = $obj->civilite;
         $this->lastName = $obj->nom;
@@ -37,13 +37,33 @@ class User {
         return (new \DateTime())->diff(new \DateTime($this->birthDate))->y;
     }
 
+    public function getOption(bool $selected) {
+        $text = ($this->civility === "M" ? "Mr." : "Mme") . " " . $this->lastName . " " . $this->firstName;
+        return "<option value='$this->idUser'" . ($selected ? "selected>" : ">") . $text . "</option>";
+    }
+
+    public function getCellTabRdv() {
+        ob_start()
+        ?>
+        <div class="d-flex align-items-center">
+            <div class="me-2" style="height: 40px;">
+                <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100" alt="Photo de profil">
+            </div>
+            <div>
+                <?= ($this->civility==="M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?>
+            </div>
+        </div>
+        <?php
+        return ob_get_clean();
+    }
+
     public function getCard() {
         ob_start();
         ?>
         <div class="col-4">
             <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
                 <div class="col-2 p-2 d-flex align-items-center justify-content-center" style="height: 80px;" data-bs-toggle="modal" data-bs-target="#modal-modif">
-                    <img src="<?= $this->picturePath ?>" class="object-fit-contain mw-100 mh-100" alt="photo de profil">
+                    <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100" alt="photo de profil">
                 </div>
                 <div class="col-9 p-1 d-flex flex-column justify-content-evenly" data-bs-toggle="modal" data-bs-target="#modal-modif">
                     <div><?= ($this->civility==="M" ? "Mr. " : "Mme. ") . $this->lastName . " " . $this->firstName ?></div>
