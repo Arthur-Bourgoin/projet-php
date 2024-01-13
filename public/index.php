@@ -42,11 +42,11 @@ $router->map("GET", "/", function () {
     header("Location: /usagers");
 });
 $router->map("GET", "/usagers", function () {
-    $controller = new UserController();
+    $controller = new UserController(null);
     $controller->listUsers();
 });
 $router->map("POST", "/usagers", function () {
-    $controller = new UserController();
+    $controller = new UserController(null);
     if(isset($_POST["action"])) {
         switch($_POST["action"]) {
             case "addUser":

@@ -26,6 +26,8 @@ class DoctorController {
     }
 
     public function updateDoctor() {
+        //var_dump($_POST); exit();
+        var_dump("here"); exit();
         if(!$this->verifDoctor() || empty($_POST["idDoctor"])) {
             Feedback::setError("Mise à jour impossible, les données ne sont pas valides.");
         } else {
@@ -58,8 +60,8 @@ class DoctorController {
         } else {
             $doctor = DoctorModel::getDoctor($_POST["idDoctor"]);
             if(!empty($doctor)) {
-                unlink("." . $doctor->picture);
                 DoctorModel::deleteDoctor($_POST["idDoctor"]);
+                unlink("." . $doctor->picture);
             }
         }
     }

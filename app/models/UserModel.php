@@ -45,7 +45,7 @@ class UserModel {
     public static function addUser(array $args) {
         try {
             $res = Database::getInstance()->prepare("SELECT * FROM usager WHERE nir = :nir");
-            $res->execute(array("nir" => $_POST["secuNumber"]));
+            $res->execute(array("nir" => $args["secuNumber"]));
             if($res->rowCount() !== 0) {
                 Feedback::setError("Ajout impossible, l'usager existe déjà.");
                 return;
@@ -84,7 +84,6 @@ class UserModel {
                 ->execute(array_intersect_key($args, array_flip($keys)));
             Feedback::setSuccess("Mise à jour de l'usager enregistrée.");
         } catch (\Exception $e) {
-            throw $e;
             Feedback::setError("Une erreur s'est produite lors de la mise à jour de l'usager.");
         }
     }

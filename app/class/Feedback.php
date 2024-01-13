@@ -21,4 +21,8 @@ class Feedback {
         return $tmp;
     }
 
+    public static function getMessageForTest() {
+        return isset($_SESSION["feedback"]) ? $_SESSION["feedback"] : "";
+    }
+
 }

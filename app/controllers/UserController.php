@@ -11,6 +11,10 @@ use App\Class\ {
 
 class UserController {
 
+    public function __construct(?UploadImg $upload) {
+        $this->upload = empty($upload) ? new UploadImg() : $upload;
+    }
+
     public function listUsers() {
         $users = UserModel::getUsers();
         $doctors = DoctorModel::getDoctors();
@@ -21,9 +25,8 @@ class UserController {
         if(!$this->verifUser()) {
             Feedback::setError("Les informations de l'utilisateur ne sont pas valides.");
         } else {
-            $upload = new UploadImg($_FILES["picture"]);
-            if($upload->upload("./assets/images/users/")) {
-                $_POST["picture"] = $upload->getUniqName();
+            if($this->upload->upload($_FILES["picture"], "./assets/images/users/")) {
+                $_POST["picture"] = $this->upload->getUniqName();
                 UserModel::addUser($_POST);
             }
         }
