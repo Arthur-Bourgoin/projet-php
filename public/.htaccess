@@ -3,6 +3,6 @@ RewriteEngine On
 #RewriteCond %{REQUEST_FILENAME} !-f #vrai si le fichier n'existe pas
 #RewriteCond %{REQUEST_FILENAME} !-d #vrai si le dossier n'existe pas
 
-RewriteCond %{REQUEST_URI} !.+\.(css|js|png|jpg|bmp|jfif)$
+RewriteCond %{REQUEST_URI} !.+\.(css|js|png|jpg|bmp|jfif|webp)$
 
 RewriteRule . index.php [L]

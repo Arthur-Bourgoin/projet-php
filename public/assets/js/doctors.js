@@ -4,7 +4,7 @@ import { updateNavBar, removeDivFeedback, eventChangePicture } from "./functions
 updateNavBar();
 removeDivFeedback();
 eventChangePicture("#pictureAdd", "#modalAddDoctor img");
-eventChangePicture("#pictureUpdate", "#modalUpdateDoctor img");
+// eventChangePicture("#pictureUpdate", "#modalUpdateDoctor img");
 
 const doctors = new Map();
 doctorsPHP.forEach(doctor => {

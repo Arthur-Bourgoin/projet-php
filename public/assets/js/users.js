@@ -28,5 +28,6 @@ document.querySelector("#mbody-name div:nth-of-type(1) input").addEventListener(
 });
 
 document.querySelector("#btn-newUser").addEventListener("click", e => {
+    document.querySelector("#modal-add img").src = "/assets/images/users/user0.png";
     document.querySelector("#modal-add form").reset();
 });

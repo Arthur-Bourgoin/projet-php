@@ -12,8 +12,8 @@
 <body class="vh-100 d-flex flex-column">
     <header class="mb-4">
         <div class="container">
-            <div class="row bg-secondary">
-                <h1 class="text-center">HEADER</h1>
+            <div class="row bg-secondary p-0">
+                <img src="/assets/images/BaniereProjet5.png" class="m-0">
             </div>
             <div class="row">
                 <nav class="navbar navbar-expand bg-body-tertiary">

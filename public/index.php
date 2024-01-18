@@ -65,11 +65,11 @@ $router->map("POST", "/usagers", function () {
 
 /*##########     MEDECINS     ##########*/
 $router->map("GET", "/medecins", function () {
-    $controller = new DoctorController();
+    $controller = new DoctorController(null);
     $controller->listDoctors();
 });
 $router->map("POST", "/medecins", function () {
-    $controller = new DoctorController();
+    $controller = new DoctorController(null);
     if(isset($_POST["action"])) {
         switch($_POST["action"]) {
             case "addDoctor":

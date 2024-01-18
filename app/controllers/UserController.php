@@ -11,6 +11,8 @@ use App\Class\ {
 
 class UserController {
 
+    private $upload;
+
     public function __construct(?UploadImg $upload) {
         $this->upload = empty($upload) ? new UploadImg() : $upload;
     }
@@ -22,7 +24,7 @@ class UserController {
     }
 
     public function addUser() {
-        if(!$this->verifUser()) {
+        if(!$this->verifUser() || empty($_FILES["picture"]["name"])) {
             Feedback::setError("Les informations de l'utilisateur ne sont pas valides.");
         } else {
             if($this->upload->upload($_FILES["picture"], "./assets/images/users/")) {
@@ -42,10 +44,15 @@ class UserController {
     }
 
     public function deleteUser() {
-        if(!empty($_POST["idUser"]))
-            UserModel::deleteUser($_POST["idUser"]);
-        else
+        if(empty($_POST["idUser"])) {
             Feedback::setError("Erreur, aucun utilisateur à supprimer.");
+        } else {
+            $user = UserModel::getUser($_POST["idUser"]);
+            if(!empty($user)) {
+                UserModel::deleteUser($_POST["idUser"]);
+                unlink("." . $user->picture);
+            }
+        }
     }
 
     private function verifUser() {

@@ -43,17 +43,17 @@ if(is_array($doctors)) {
                 <div class="col-7 d-flex flex-column justify-content-evenly">
                     <div class="row">
                         <div class="col-3 d-flex"><label for="inputLastName" class="form-label my-auto">Nom</label></div>
-                        <div class="col-9"><input id="inputLastName" name="lastName" type="text" class="form-control"></div>
+                        <div class="col-9"><input id="inputLastName" name="lastName" type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-3 d-flex"><label for="inputFirstName" class="form-label my-auto">Prénom</label></div>
-                        <div class="col-9"><input id="inputFirstName" name="firstName" type="text" class="form-control"></div>
+                        <div class="col-9"><input id="inputFirstName" name="firstName" type="text" class="form-control" required></div>
                     </div>
                 </div>
                 <div class="col-2 d-flex flex-column justify-content-evenly">
                     <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inputM">M</label>
-                        <input class="form-check-input" type="radio" id="inputM" name="civility" value="M">
+                        <input class="form-check-input" type="radio" id="inputM" name="civility" value="M" required>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="inputF" name="civility" value="F">
@@ -86,7 +86,7 @@ if(is_array($doctors)) {
             </div>
             <div class="modal-body row">
                 <div class="col-3 d-flex justify-content-center" style="height: 120px;">
-                    <label for="pictureUpdate" class="h-100 d-flex align-items-center">
+                    <label for="pictureUpdate" class="h-100 d-flex align-items-center pe-none">
                         <img class="object-fit-contain mw-100 mh-100" style="cursor: pointer;" alt="photo de profil">
                     </label>
                     <input id="pictureUpdate" name="picture" type="file" class="d-none">

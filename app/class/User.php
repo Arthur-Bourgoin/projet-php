@@ -61,7 +61,7 @@ class User {
         ob_start();
         ?>
         <div class="col-4">
-            <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>">
+            <div class="divUser row position-relative m-0 border rounded" data-id-user="<?= $this->idUser ?>" role="button">
                 <div class="col-2 p-2 d-flex align-items-center justify-content-center" style="height: 80px;" data-bs-toggle="modal" data-bs-target="#modal-modif">
                     <img src="<?= $this->picture ?>" class="object-fit-contain mw-100 mh-100" alt="photo de profil">
                 </div>

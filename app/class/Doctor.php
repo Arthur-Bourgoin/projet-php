@@ -76,7 +76,7 @@ class Doctor {
                     <form action="/consultations" method="POST">
                         <input type="hidden" name="action" value="filterTable">
                         <input type="hidden" name="doctor" value="<?= $this->idDoctor ?>">
-                        <button type="submit" class="btn btn-primary"><i class="bi bi-person"></i></button>
+                        <button type="submit" class="btn btn-primary"><i class="bi bi-calendar-week"></i></button>
                     </form>
                     <button class="btn btn-primary mx-3 btnUpdateModal" data-bs-toggle="modal" data-bs-target="#modalUpdateDoctor" data-id-doctor="<?= $this->idDoctor ?>">
                         <i class="bi bi-pencil-square"></i>
