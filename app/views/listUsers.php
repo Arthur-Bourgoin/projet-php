@@ -4,8 +4,11 @@ $scripts = "<script src='/assets/js/users.js' type='module'></script>";
 ob_start();
 ?>
 <style>
-    .divUser:hover {
-        background-color: #ececec;
+    .divUser {
+        transition: transform .1s;
+    }
+    .divUser:hover{
+        transform: scale(1.01);
     }
 </style>
 <?= \App\Class\Feedback::getMessage() ?>
@@ -50,43 +53,43 @@ if(is_array($users)) {
             <div class="col-9 d-flex flex-column justify-content-evenly">
                 <div id="mbody-name" class="row gx-1">
                     <div class="col-2"><input type="text" name="civility" class="form-control form-control-sm" readonly style="cursor: pointer;" onmousedown="return false;"></div>
-                    <div class="col-5"><input type="text" name="lastName" class="form-control form-control-sm"></div>
-                    <div class="col-5"><input type="text" name="firstName" class="form-control form-control-sm"></div>
+                    <div class="col-5"><input type="text" name="lastName" class="form-control form-control-sm" required></div>
+                    <div class="col-5"><input type="text" name="firstName" class="form-control form-control-sm" required></div>
                 </div>
                 <div id="mbody-birth" class="row gx-1">
                     <div class="col-2 d-flex align-items-center">Né le</div>
-                    <div class="col-5"><input type="date" name="birthDate" class="form-control form-control-sm"></div>
+                    <div class="col-5"><input type="date" name="birthDate" class="form-control form-control-sm" required></div>
                     <div class="col-1 d-flex align-items-center justify-content-center">à</div>
-                    <div class="col-4"><input type="text" name="birthPlace" class="form-control form-control-sm" value="Paris"></div>
+                    <div class="col-4"><input type="text" name="birthPlace" class="form-control form-control-sm" required></div>
                 </div>
             </div>
             <div id="mbody-nir" class="col-12 mt-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-person-vcard"></i></span>
-                    <input type="text" name="secuNumber" class="form-control">
+                    <input type="text" name="secuNumber" class="form-control" required>
                 </div>
             </div>
             <div id="mbody-pcode" class="col-6 mt-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                    <input type="text" name="postalCode" class="form-control">
+                    <input type="text" name="postalCode" class="form-control" required>
                 </div>
             </div>
             <div id="mbody-city" class="col-6 mt-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-buildings"></i></span>
-                    <input type="text" name="city" class="form-control">
+                    <input type="text" name="city" class="form-control" required>
                 </div>
             </div>
             <div id="mbody-address" class="col-12 mt-4">
                 <div class="input-group">
                     <span class="input-group-text"><i class="bi bi-house"></i></span>
-                    <input type="text" name="address" class="form-control">
+                    <input type="text" name="address" class="form-control" required>
                 </div>
             </div>
             <div id="mbody-doctor" class="col-12 mt-4">
                 <div class="input-group">
-                    <span class="input-group-text"><svg height="16" width="14" viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg></span>
+                    <span class="input-group-text"><i class="bi bi-heart-pulse"></i></span>
                     <select name="idDoctor" class="form-select">
                         <option value="0">Aucun médecin référent</option>
                         <?php
@@ -135,17 +138,17 @@ if(is_array($users)) {
             <div class="col-7 d-flex flex-column justify-content-evenly">
                 <div class="row">
                     <div class="col-3 d-flex"><label for="inputLastName" class="form-label my-auto">Nom</label></div>
-                    <div class="col-9"><input id="inputLastName" name="lastName" type="text" class="form-control"></div>
+                    <div class="col-9"><input id="inputLastName" name="lastName" type="text" class="form-control" required></div>
                 </div>
                 <div class="row">
                     <div class="col-3 d-flex"><label for="inputFirstName" class="form-label my-auto">Prénom</label></div>
-                    <div class="col-9"><input id="inputFirstName" name="firstName" type="text" class="form-control"></div>
+                    <div class="col-9"><input id="inputFirstName" name="firstName" type="text" class="form-control" required></div>
                 </div>
             </div>
             <div class="col-2 d-flex flex-column justify-content-evenly">
                 <div class="form-check form-check-inline">
                     <label class="form-check-label" for="inputM">M</label>
-                    <input class="form-check-input" type="radio" id="inputM" name="civility" value="M">
+                    <input class="form-check-input" type="radio" id="inputM" name="civility" value="M" required>
                 </div>
                 <div class="form-check form-check-inline">
                     <input class="form-check-input" type="radio" id="inputF" name="civility" value="F">
@@ -158,7 +161,7 @@ if(is_array($users)) {
                         <label for="secuNumber" class="form-label my-auto">Numéro de sécurité sociale</label>
                     </div>
                     <div class="col-6">
-                        <input id="secuNumber" name="secuNumber" type="text" class="form-control">
+                        <input id="secuNumber" name="secuNumber" type="text" class="form-control" required>
                     </div>
                 </div>
             </div>
@@ -167,11 +170,11 @@ if(is_array($users)) {
                 <div class="row px-3 mb-3">
                     <div class="col-1 d-flex align-items-center p-0">Le</div>
                     <div class="col-5 px-0">
-                        <input type="date" name="birthDate" class="form-control">
+                        <input type="date" name="birthDate" class="form-control" required>
                     </div>
                     <div class="col-1 d-flex align-items-center justify-content-center p-0">à</div>
                     <div class="col-5 px-0">
-                        <input type="text" name="birthPlace" class="form-control">
+                        <input type="text" name="birthPlace" class="form-control" required>
                     </div>
                 </div>
             </fieldset>
@@ -181,26 +184,26 @@ if(is_array($users)) {
                     <div class="col-6">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-geo-alt"></i></span>
-                            <input type="text" name="postalCode" class="form-control">
+                            <input type="text" name="postalCode" class="form-control" required>
                         </div>
                     </div>
                    <div class="col-6">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-buildings"></i></span>
-                            <input type="text" name="city" class="form-control">
+                            <input type="text" name="city" class="form-control" required>
                         </div>
                    </div>
                     <div class="col-12 my-3">
                         <div class="input-group">
                             <span class="input-group-text"><i class="bi bi-house"></i></span>
-                            <input type="text" name="address" class="form-control">
+                            <input type="text" name="address" class="form-control" required>
                         </div>
                     </div>
                 </div>
             </fieldset>
             <div class="col-12 mt-3 p-0">
                 <div class="input-group">
-                    <span class="input-group-text"><svg height="16" width="14" viewBox="0 0 448 512"><path d="M224 256A128 128 0 1 0 224 0a128 128 0 1 0 0 256zm-96 55.2C54 332.9 0 401.3 0 482.3C0 498.7 13.3 512 29.7 512H418.3c16.4 0 29.7-13.3 29.7-29.7c0-81-54-149.4-128-171.1V362c27.6 7.1 48 32.2 48 62v40c0 8.8-7.2 16-16 16H336c-8.8 0-16-7.2-16-16s7.2-16 16-16V424c0-17.7-14.3-32-32-32s-32 14.3-32 32v24c8.8 0 16 7.2 16 16s-7.2 16-16 16H256c-8.8 0-16-7.2-16-16V424c0-29.8 20.4-54.9 48-62V304.9c-6-.6-12.1-.9-18.3-.9H178.3c-6.2 0-12.3 .3-18.3 .9v65.4c23.1 6.9 40 28.3 40 53.7c0 30.9-25.1 56-56 56s-56-25.1-56-56c0-25.4 16.9-46.8 40-53.7V311.2zM144 448a24 24 0 1 0 0-48 24 24 0 1 0 0 48z"/></svg></span>
+                    <span class="input-group-text"><i class="bi bi-heart-pulse"></i></span>
                     <select name="idDoctor" class="form-select">
                         <option value="0">Aucun médecin référent</option>
                         <?php

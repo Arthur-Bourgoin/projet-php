@@ -4,6 +4,7 @@ export function updateNavBar() {
         if(a.href.split("/").pop() === window.location.pathname.substring(1))
             a.classList.add("active");
     });
+    updateTheme();
 }
 
 export function removeDivFeedback() {
@@ -22,6 +23,18 @@ export function removeDivFeedback() {
     }
 }
 
+export function eventChangePicture(input, img) {
+    document.querySelector(input).addEventListener("input", e => {
+        const reader = new FileReader();
+        reader.onload = e => document.querySelector(img).src = e.target.result
+        reader.addEventListener('progress', e => {
+            if (e.loaded && e.total)
+              console.log("Progress: " + Math.round((e.loaded / e.total) * 100));
+          });    
+        reader.readAsDataURL(e.currentTarget.files[0]);
+    });
+}
+
 function eyeOnClick(e) {
     const input = e.currentTarget.previousElementSibling;
     if(input.type === "text") {
@@ -34,14 +47,29 @@ function eyeOnClick(e) {
     }
 }
 
-export function eventChangePicture(input, img) {
-    document.querySelector(input).addEventListener("input", e => {
-        const reader = new FileReader();
-        reader.onload = e => document.querySelector(img).src = e.target.result
-        reader.addEventListener('progress', e => {
-            if (e.loaded && e.total)
-              console.log("Progress: " + Math.round((e.loaded / e.total) * 100));
-          });    
-        reader.readAsDataURL(e.currentTarget.files[0]);
+function updateTheme() {
+    const btn = document.querySelector("#btn-theme");
+    let theme = localStorage.getItem("theme");
+    if(theme == null) {
+        localStorage.setItem("theme", "light");
+        theme = "light";
+    }
+    if(theme === "light") {
+        btn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+        document.querySelector("html").dataset.bsTheme = "light";
+    } else {
+        btn.innerHTML = '<i class="bi bi-moon-stars-fill"></i>';
+        document.querySelector("html").dataset.bsTheme = "dark";
+    }
+    btn.addEventListener("click", e => {
+        if(localStorage.getItem("theme") === "light") {
+            localStorage.setItem("theme", "dark");
+            btn.innerHTML = '<i class="bi bi-moon-stars-fill"></i>';
+            document.querySelector("html").dataset.bsTheme = "dark";
+        } else {
+            localStorage.setItem("theme", "light");
+            btn.innerHTML = '<i class="bi bi-sun-fill"></i>';
+            document.querySelector("html").dataset.bsTheme = "light";
+        }
     });
 }

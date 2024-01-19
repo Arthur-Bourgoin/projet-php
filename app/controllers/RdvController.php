@@ -10,11 +10,12 @@ use App\Class\Feedback;
 class RdvController {
 
     public function displayPage() {
-        $rdvs = RdvModel::getRdvs();
         $doctors = DoctorModel::getDoctors();
         $users = UserModel::getUsers();
         $idDoctor = isset($_SESSION["rdv"]["doctor"]) ? $_SESSION["rdv"]["doctor"] : 0;
         $idUser = isset($_SESSION["rdv"]["user"]) ? $_SESSION["rdv"]["user"] : 0;
+        $rdvs = RdvModel::getRdvs($idDoctor, $idUser);
+        unset($_SESSION["rdv"]);
         require("../app/views/rdv.php");
     }
 
@@ -24,11 +25,32 @@ class RdvController {
     }
 
     public function addRdv() {
-        if(!$this->verifRdv()) {
-            Feedback::setError("Ajout impossible, les données sont invalides.");
-        } else {
-            $rdvs = RdvModel::getRdvsByDoctor($_POST["idDoctor"]);
-        }
+        if(!$this->verifRdv())
+            Feedback::setError("Ajout impossible, les informations sont invalides.");
+        elseif(RdvModel::isOverlapRdvDoctor($_POST))
+            Feedback::setError("Ajout impossible, les consultations du médecin se chevauchent.");
+        elseif(RdvModel::isOverlapRdvUser($_POST))
+            Feedback::setError("Ajout impossible, les consultations de l'usager se chevauchent.");
+        else
+            RdvModel::addRdv($_POST);
+    }
+
+    public function updateRdv() {
+        if(!$this->verifRdv() || empty($_POST["idRdv"]))
+            Feedback::setError("Mise à jour impossible, les informations sont invalides.");
+            elseif(RdvModel::isOverlapRdvDoctor($_POST))
+            Feedback::setError("Ajout impossible, les consultations du médecin se chevauchent.");
+        elseif(RdvModel::isOverlapRdvUser($_POST))
+            Feedback::setError("Ajout impossible, les consultations de l'usager se chevauchent.");
+        else
+            RdvModel::updateRdv($_POST);
+    }
+
+    public function deleteRdv() {
+        if(empty($_POST["idRdv"]))
+            Feedback::setError("Impossible de supprimer cette consultation.");
+        else
+            RdvModel::deleteRdv($_POST["idRdv"]);
     }
 
     public function verifRdv() {

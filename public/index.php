@@ -12,7 +12,6 @@ use App\Controllers\ {
 session_start();
 
 if(!isset($_SESSION["connected"]) && $_SERVER["REQUEST_URI"] !== "/connexion") header("Location: /connexion");
-if($_SERVER["REQUEST_URI"] !== "/consultations") unset($_SESSION["rdv"]);
 
 $router = new AltoRouter();
 
@@ -100,6 +99,12 @@ $router->map("POST", "/consultations", function () {
                 break;
             case "addRdv":
                 $controller->addRdv();
+                break;
+            case "updateRdv":
+                $controller->updateRdv();
+                break;
+            case "deleteRdv":
+                $controller->deleteRdv();
                 break;
         }
     }

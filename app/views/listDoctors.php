@@ -94,17 +94,17 @@ if(is_array($doctors)) {
                 <div class="col-7 d-flex flex-column justify-content-evenly">
                     <div class="row">
                         <div class="col-3 d-flex"><label for="inputLastNameU" class="form-label my-auto">Nom</label></div>
-                        <div class="col-9"><input id="inputLastNameU" name="lastName" type="text" class="form-control"></div>
+                        <div class="col-9"><input id="inputLastNameU" name="lastName" type="text" class="form-control" required></div>
                     </div>
                     <div class="row">
                         <div class="col-3 d-flex"><label for="inputFirstNameU" class="form-label my-auto">Prénom</label></div>
-                        <div class="col-9"><input id="inputFirstNameU" name="firstName" type="text" class="form-control"></div>
+                        <div class="col-9"><input id="inputFirstNameU" name="firstName" type="text" class="form-control" required></div>
                     </div>
                 </div>
                 <div class="col-2 d-flex flex-column justify-content-evenly">
                     <div class="form-check form-check-inline">
                         <label class="form-check-label" for="inputMU">M</label>
-                        <input class="form-check-input" type="radio" id="inputMU" name="civility" value="M">
+                        <input class="form-check-input" type="radio" id="inputMU" name="civility" value="M" required>
                     </div>
                     <div class="form-check form-check-inline">
                         <input class="form-check-input" type="radio" id="inputFU" name="civility" value="F">

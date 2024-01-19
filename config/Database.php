@@ -4,7 +4,7 @@ namespace Config;
 class Database {
 
     const SERVER = "localhost";
-    const DB = "projectPHP";
+    const DB = "projetPHP";
     const LOGIN = "root";
     const PWD = "iutinfoROOT";
     //const LOGIN = "userProjectPHP";

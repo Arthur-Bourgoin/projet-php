@@ -13,7 +13,7 @@
     <header class="mb-4">
         <div class="container">
             <div class="row bg-secondary p-0">
-                <img src="/assets/images/BaniereProjet5.png" class="m-0">
+                <img src="/assets/images/baniere.png" class="p-0">
             </div>
             <div class="row">
                 <nav class="navbar navbar-expand bg-body-tertiary">
@@ -35,17 +35,20 @@
                                 <a class="nav-link" href="/statistiques"><i class="bi bi-graph-up me-2"></i>Statistiques</a>
                             </li>
                         </ul>
-                        <a href="/disconnect">
-                            <button class="btn btn-danger">
-                                <i class="bi bi-power me-2"></i>Se déconnecter
-                            </button>
-                        </a>
+                        <div>
+                            <button id="btn-theme" class="btn btn-primary me-2"></button>
+                            <a href="/disconnect">
+                                <button class="btn btn-danger">
+                                    <i class="bi bi-power me-2"></i>Se déconnecter
+                                </button>
+                            </a>
+                        </div>
                     </div>
                 </nav>
             </div>
         </div>
     </header>
-    <main>
+    <main class="mb-4">
         <div class="container p-0">
             <?= isset($content) ? $content : "Contenu de la page." ?>
         </div>

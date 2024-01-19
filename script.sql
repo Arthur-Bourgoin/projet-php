@@ -33,11 +33,12 @@ CREATE TABLE Usager(
 ) ENGINE = InnoDB;
 
 CREATE TABLE RDV(
-   idMedecin INT,
+   idRdv INT AUTO_INCREMENT,
+   idMedecin INT NOT NULL,
    dateHeureDebut DATETIME,
    duree INT,
    idUsager INT NOT NULL,
-   PRIMARY KEY(idMedecin, dateHeureDebut),
+   PRIMARY KEY(idRdv),
    FOREIGN KEY(idMedecin) REFERENCES Medecin(idMedecin) ON DELETE CASCADE,
    FOREIGN KEY(idUsager) REFERENCES Usager(idUsager) ON DELETE CASCADE
 ) ENGINE = InnoDB;
@@ -68,6 +69,23 @@ END;
 //
 DELIMITER ;
 
+DELIMITER //
+CREATE TRIGGER tbd_medecin_nullFKUser
+BEFORE DELETE
+ON medecin
+FOR EACH ROW
+BEGIN
+   UPDATE usager SET idMedecin = NULL 
+                 WHERE idMedecin = OLD.idMedecin;
+END;
+//
+DELIMITER ;
 
+-- SELECT * FROM RDV
+--                  WHERE idMedecin = 2
+--                     AND 
+--                     ( ("2024-01-31 10:30" >= dateHeureDebut AND "2024-01-31 10:30" < dateHeureDebut + INTERVAL duree MINUTE) OR
+--                     ("2024-01-31 10:30" <= dateHeureDebut AND "2024-01-311 10:30" + INTERVAL 60 MINUTE >= dateHeureDebut) OR
+--                     ("2024-01-31 10:30" <= dateHeureDebut AND "2024-01-31 10:30" + INTERVAL 60 MINUTE >= dateHeureDebut + INTERVAL duree MINUTE) )
 
 

@@ -98,6 +98,7 @@ class DoctorModel {
                 ->execute(array("id" => $id));
             Feedback::setSuccess("Suppression du médecin enregistrée.");
         } catch (\Exception $e) {
+            throw $e;
             Feedback::setError("Une erreur s'est produite lors de la suppression du médecin.");
         }        
     }
