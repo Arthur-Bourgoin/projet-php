@@ -4,7 +4,7 @@ $scripts = "<script src='/assets/js/rdv.js' type='module'></script>";
 ob_start();
 ?>
 
-<?= \App\Class\Feedback::getMessage() ?>
+<?= \app\class\Feedback::getMessage() ?>
 
 <div class="div-top">
     <h1 class="mb-4">Liste des consultations</h1>

@@ -1,7 +1,7 @@
 <?php
-namespace App\Models;
-use Config\Database;
-use App\Class\ {
+namespace app\models;
+use config\database;
+use app\class\ {
     User,
     Doctor,
     Feedback

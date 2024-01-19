@@ -1,7 +1,7 @@
 <?php
-namespace App\Controllers;
-use App\Models\DoctorModel;
-use App\Class\ {
+namespace app\controllers;
+use app\models\DoctorModel;
+use app\class\ {
     Feedback,
     UploadImg
 };

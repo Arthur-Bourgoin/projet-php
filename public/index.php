@@ -1,7 +1,7 @@
 <?php
 require_once("../vendor/autoload.php");
 
-use App\Controllers\ {
+use app\controllers\ {
     UserController,
     DoctorController,
     StatsController,

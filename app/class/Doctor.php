@@ -1,6 +1,6 @@
 <?php
-namespace App\Class;
-use App\Models\DoctorModel;
+namespace app\class;
+use app\models\DoctorModel;
 
 class Doctor {
 

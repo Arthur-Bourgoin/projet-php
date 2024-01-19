@@ -1,5 +1,5 @@
 <?php
-namespace App\Class;
+namespace app\class;
 
 class UploadImg {
 

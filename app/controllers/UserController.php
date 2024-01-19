@@ -1,10 +1,10 @@
 <?php
-namespace App\Controllers;
-use App\Models\ {
+namespace app\controllers;
+use app\models\ {
     UserModel,
     DoctorModel
 };
-use App\Class\ {
+use app\class\ {
     Feedback,
     UploadImg
 };

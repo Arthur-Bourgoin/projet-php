@@ -4,7 +4,7 @@ $scripts = "<script src='/assets/js/doctors.js' type='module'></script>";
 ob_start();
 ?>
 
-<?= \App\Class\Feedback::getMessage() ?>
+<?= \app\class\Feedback::getMessage() ?>
 
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Liste des médecins</h1>

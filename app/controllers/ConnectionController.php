@@ -1,5 +1,5 @@
 <?php
-namespace App\Controllers;
+namespace app\controllers;
 
 class ConnectionController {
 
@@ -17,6 +17,7 @@ class ConnectionController {
             exit();
         }
         if(empty($_POST["login"]) || empty($_POST["pwd"])) {
+            Feedback::setError("Erreur, le champ de login ou de mot de passe n'a pas été rempli.");
             header("Location: /connexion");
             exit();
         }
@@ -24,6 +25,7 @@ class ConnectionController {
             $_SESSION["connected"] = true;
             header("Location: /usagers");
         } else {
+            Feedback::setError("Identifiant ou mot de passe incorrect.");
             header("Location: /connexion");
         }
     }

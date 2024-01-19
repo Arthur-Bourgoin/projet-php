@@ -11,7 +11,7 @@ ob_start();
         transform: scale(1.01);
     }
 </style>
-<?= \App\Class\Feedback::getMessage() ?>
+<?= \app\class\Feedback::getMessage() ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Liste des usagers</h1>
     <div>
