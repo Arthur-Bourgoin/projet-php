@@ -9,6 +9,7 @@ class Doctor {
     public $idDoctor;
     public $civility;
     public $lastName;
+    public $picture;
     public $firstName;
     public $duration;
 

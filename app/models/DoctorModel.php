@@ -104,7 +104,7 @@ class DoctorModel {
     }
 
     private static function existDoctor(int $id) {
-        $res = Database::getInstance()->prepare("SELECT * FROM medecin WHERE idMedecin = :id");
+        $res = Database::getInstance()->prepare("SELECT * FROM Medecin WHERE idMedecin = :id");
         $res->execute(array("id" => $id));
         return $res->rowCount();
     }

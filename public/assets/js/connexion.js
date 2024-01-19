@@ -1,3 +1,6 @@
+import { removeDivFeedback } from "./functions.js";
+removeDivFeedback();
+
 document.querySelector("#pwd").addEventListener("focus", e => {
     document.querySelector("span").classList.add("bg-transparent");
 });

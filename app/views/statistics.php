@@ -5,6 +5,7 @@ $scripts = "<script src='https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.
 ob_start();
 ?>
 
+<?= \app\class\Feedback::getMessage() ?>
 <div class="border rounded p-2">
     <ul class="nav nav-tabs" role="tablist">
         <li class="nav-item" role="presentation">

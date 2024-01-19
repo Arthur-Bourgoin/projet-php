@@ -1,7 +1,9 @@
 import { Doctor } from "./class/Doctor.js";
-import { updateNavBar } from "./functions.js";
+import { updateNavBar, removeDivFeedback } from "./functions.js";
 
 updateNavBar();
+removeDivFeedback();
+
 const doctors = doctorsPHP.map(doctor => new Doctor(doctor));
 
 /* #####    AGE CHART    #####*/
