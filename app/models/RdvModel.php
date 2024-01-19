@@ -14,15 +14,15 @@ class RdvModel {
         try {
             $rdvs = [];
             if($idDoctor == 0 && $idUser == 0) {
-                $res = Database::getInstance()->query("SELECT * FROM rdv ORDER BY dateHeureDebut DESC");
+                $res = Database::getInstance()->query("SELECT * FROM Rdv ORDER BY dateHeureDebut DESC");
             } elseif($idDoctor == 0) {
-                $res = Database::getInstance()->prepare("SELECT * FROM rdv WHERE idUsager = :idUser ORDER BY dateHeureDebut DESC");
+                $res = Database::getInstance()->prepare("SELECT * FROM Rdv WHERE idUsager = :idUser ORDER BY dateHeureDebut DESC");
                 $res->execute(array("idUser" => $idUser));
             } elseif($idUser == 0) {
-                $res = Database::getInstance()->prepare("SELECT * FROM rdv WHERE idMedecin = :idDoctor ORDER BY dateHeureDebut DESC");
+                $res = Database::getInstance()->prepare("SELECT * FROM Rdv WHERE idMedecin = :idDoctor ORDER BY dateHeureDebut DESC");
                 $res->execute(array("idDoctor" => $idDoctor));
             } else {
-                $res = Database::getInstance()->prepare("SELECT * FROM rdv WHERE idMedecin = :idDoctor AND idUsager = :idUser ORDER BY dateHeureDebut DESC");
+                $res = Database::getInstance()->prepare("SELECT * FROM Rdv WHERE idMedecin = :idDoctor AND idUsager = :idUser ORDER BY dateHeureDebut DESC");
                 $res->execute(array("idDoctor" => $idDoctor, "idUser" => $idUser));
             }
             while($rdv = $res->fetch()) {
@@ -49,7 +49,7 @@ class RdvModel {
     */
     public static function isOverlapRdvDoctor(array $args) {
         try {
-            $req = "SELECT * FROM RDV
+            $req = "SELECT * FROM Rdv
                     WHERE idMedecin = :idDoctor
                         AND ( (:dateTime >= dateHeureDebut AND :dateTime < dateHeureDebut + INTERVAL duree MINUTE) 
                             OR
@@ -72,7 +72,7 @@ class RdvModel {
 
     public static function isOverlapRdvUser(array $args) {
         try {
-            $req = "SELECT * FROM RDV
+            $req = "SELECT * FROM Rdv
                     WHERE idUsager = :idUser
                         AND ( (:dateTime >= dateHeureDebut AND :dateTime < dateHeureDebut + INTERVAL duree MINUTE) 
                             OR
@@ -97,7 +97,7 @@ class RdvModel {
     public static function addRdv(array $args) {
         try {
             Database::getInstance()
-                ->prepare("INSERT INTO rdv (idMedecin, idUsager, dateHeureDebut, duree)
+                ->prepare("INSERT INTO Rdv (idMedecin, idUsager, dateHeureDebut, duree)
                            VALUES (:idDoctor, :idUser, :dateTime, :duration)")
                 ->execute(array_intersect_key($args, array_flip(["idDoctor", "idUser", "dateTime", "duration"])));
             Feedback::setSuccess("Ajout de la consultation enregistré.");
@@ -113,7 +113,7 @@ class RdvModel {
                 return;
             }
             Database::getInstance()
-                ->prepare("UPDATE rdv
+                ->prepare("UPDATE Rdv
                            SET idMedecin = :idDoctor,
                                idUsager = :idUser,
                                dateHeureDebut = :dateTime,
@@ -133,7 +133,7 @@ class RdvModel {
                 return;
             }
             Database::getInstance()
-                ->prepare("DELETE FROM rdv WHERE idRdv = :idRdv")
+                ->prepare("DELETE FROM Rdv WHERE idRdv = :idRdv")
                 ->execute(array("idRdv" => $idRdv));
             Feedback::setSuccess("La suppression de la consultation a été enregistrée.");
         } catch (\Exception $e) {

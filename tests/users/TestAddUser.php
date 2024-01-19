@@ -1,12 +1,12 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Config\Database;
-use App\Class\ {
+use config\Database;
+use app\class\ {
     Feedback,
     UploadImg
 };
-use App\Controllers\UserController;
+use app\controllers\UserController;
 
 final class TestAddUser extends TestCase {
 
@@ -17,7 +17,7 @@ final class TestAddUser extends TestCase {
         $this->uploadMock = $this->createMock(UploadImg::class);
         $this->uploadMock->method('upload')->willReturn(true);
         $this->controller = new UserController($this->uploadMock);
-        $_FILES = ["picture" => []];
+        $_FILES = ["picture" => ["name" => "leNom"]];
     }
 
     public function tearDown(): void {
@@ -26,6 +26,7 @@ final class TestAddUser extends TestCase {
     }
 
     public function testSuccess() {
+        Database::getInstance()->exec("DELETE FROM usager WHERE nir = '951753000369147'");
         $_POST = [
             "lastName" => "Doe",
             "firstName" => "John",

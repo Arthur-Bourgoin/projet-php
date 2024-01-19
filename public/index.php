@@ -48,6 +48,9 @@ $router->map("POST", "/usagers", function () {
     $controller = new UserController(null);
     if(isset($_POST["action"])) {
         switch($_POST["action"]) {
+            case "filterList":
+                $controller->filterList();
+                break;
             case "addUser":
                 $controller->addUser();
                 break;

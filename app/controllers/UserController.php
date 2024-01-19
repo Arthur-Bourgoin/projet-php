@@ -18,9 +18,20 @@ class UserController {
     }
 
     public function listUsers() {
-        $users = UserModel::getUsers();
+        if(isset($_SESSION["filterUser"]))
+            $users = UserModel::getUsersFilter($_SESSION["filterUser"]);
+        else    
+            $users = UserModel::getUsers();
         $doctors = DoctorModel::getDoctors();
         require("../app/views/listUsers.php");
+        unset($_SESSION["filterUser"]);
+    }
+
+    public function filterList() {
+        if(!isset($_POST["filter"]))
+            Feedback::setError("Erreur, impossible de filtrer la liste des usagers.");
+        else
+            $_SESSION["filterUser"] = $_POST["filter"];
     }
 
     public function addUser() {

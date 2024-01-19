@@ -1,12 +1,12 @@
 <?php
 
 use PHPUnit\Framework\TestCase;
-use Config\Database;
-use App\Class\ {
+use config\Database;
+use app\class\ {
     Feedback,
     UploadImg
 };
-use App\Controllers\UserController;
+use app\controllers\UserController;
 
 final class TestUpdateUser extends TestCase {
 

@@ -32,7 +32,7 @@ CREATE TABLE Usager(
    FOREIGN KEY(idMedecin) REFERENCES Medecin(idMedecin)
 ) ENGINE = InnoDB;
 
-CREATE TABLE RDV(
+CREATE TABLE Rdv(
    idRdv INT AUTO_INCREMENT,
    idMedecin INT NOT NULL,
    dateHeureDebut DATETIME,
@@ -46,7 +46,7 @@ CREATE TABLE RDV(
 DELIMITER //
 CREATE TRIGGER tbi_usager_transformIdMedecin
 BEFORE INSERT
-ON usager
+ON Usager
 FOR EACH ROW
 BEGIN
    IF NEW.idMedecin = 0 THEN
@@ -59,7 +59,7 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER tbu_usager_transformIdMedecin
 BEFORE UPDATE
-ON usager
+ON Usager
 FOR EACH ROW
 BEGIN
    IF NEW.idMedecin = 0 THEN
@@ -72,10 +72,10 @@ DELIMITER ;
 DELIMITER //
 CREATE TRIGGER tbd_medecin_nullFKUser
 BEFORE DELETE
-ON medecin
+ON Medecin
 FOR EACH ROW
 BEGIN
-   UPDATE usager SET idMedecin = NULL 
+   UPDATE Usager SET idMedecin = NULL 
                  WHERE idMedecin = OLD.idMedecin;
 END;
 //

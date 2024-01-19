@@ -11,7 +11,7 @@ class DoctorModel {
     public static function getDoctors() {
         try {
             $doctors = [];
-            $res = Database::getInstance()->query("SELECT * FROM medecin ORDER BY nom");
+            $res = Database::getInstance()->query("SELECT * FROM Medecin ORDER BY nom");
             while ($data = $res->fetch()) {
                 $doctors[] = new Doctor($data);
             }
@@ -26,7 +26,7 @@ class DoctorModel {
 
     public static function getDoctor(int $id) {
         try {
-            $res = Database::getInstance()->prepare("SELECT * FROM medecin WHERE idMedecin = :id");
+            $res = Database::getInstance()->prepare("SELECT * FROM Medecin WHERE idMedecin = :id");
             $res->execute(array("id" => $id));
             $doctor = $res->fetch();
             if(!$doctor)
@@ -47,7 +47,7 @@ class DoctorModel {
                 Feedback::setError("Une erreur s'est produite lors du chargement des graphiques.");
                 return;
             }
-            $res = Database::getInstance()->prepare("SELECT sum(duree)/60 as duree FROM rdv WHERE idMedecin = :id");
+            $res = Database::getInstance()->prepare("SELECT sum(duree)/60 as duree FROM Rdv WHERE idMedecin = :id");
             $res->execute(array("id" => $idDoctor));
             $duration = $res->fetch()->duree;
             return $duration ? $duration : 0;
@@ -59,7 +59,7 @@ class DoctorModel {
     public static function addDoctor(array $args) {
         try {
             Database::getInstance()
-                ->prepare("INSERT INTO medecin (civilite, nom, prenom, photo)
+                ->prepare("INSERT INTO Medecin (civilite, nom, prenom, photo)
                            VALUES (:civility, :lastName, :firstName, :picture)")
                 ->execute(array_intersect_key($args, array_flip(["civility", "lastName", "firstName", "picture"])));
             Feedback::setSuccess("Ajout du médecin enregistré.");
@@ -75,7 +75,7 @@ class DoctorModel {
                 return;
             }
             Database::getInstance()
-                ->prepare("UPDATE medecin
+                ->prepare("UPDATE Medecin
                             SET civilite = :civility,
                                 nom = :lastName,
                                 prenom = :firstName
@@ -94,7 +94,7 @@ class DoctorModel {
                 return;
             }
             Database::getInstance()
-                ->prepare("DELETE FROM medecin WHERE idMedecin = :id")
+                ->prepare("DELETE FROM Medecin WHERE idMedecin = :id")
                 ->execute(array("id" => $id));
             Feedback::setSuccess("Suppression du médecin enregistrée.");
         } catch (\Exception $e) {

@@ -42,6 +42,7 @@
         <div class="row w-100 d-flex justify-content-center">
             <div class="col-5">
                 <h1 class="text-white text-center mb-5">Connectez vous</h1>
+                <?= \app\class\Feedback::getMessage() ?>
                 <form action="<?= $_SERVER['REQUEST_URI'] ?>" method="POST">
                     <div class="divInput mb-4">
                         <input id="login" type="text" class="form-control form-control-lg rounded-pill" placeholder="Identifiant" name="login">

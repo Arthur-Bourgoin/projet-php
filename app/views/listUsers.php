@@ -14,10 +14,22 @@ ob_start();
 <?= \app\class\Feedback::getMessage() ?>
 <div class="d-flex justify-content-between align-items-center mb-3">
     <h1>Liste des usagers</h1>
-    <div>
-        <button id="btn-newUser" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modal-add">
-            <i class="bi bi-person-plus-fill me-2"></i>nouveau
-        </button>
+    <div class="d-flex align-items-center">
+        <form action="<?= $_SERVER["REQUEST_URI"] ?>" method="POST" class="me-3">
+            <input type="hidden" name="action" value="filterList">
+            <div class="input-group">
+                <?php if(!empty($_SESSION["filterUser"])) { ?>
+                    <a href="<?= $_SERVER["REQUEST_URI"] ?>" class="btn btn-outline-danger" role="button"><i class="bi bi-x-circle"></i></a>
+                <?php } ?>
+                <input type="text" class="form-control" name="filter" placeholder='exemple: "fevr"' value="<?= isset($_SESSION["filterUser"]) ? $_SESSION["filterUser"] : "" ?>">
+                <button class="btn btn-outline-primary" type="submit" id="btn-search"><i class="bi bi-search"></i></button>
+            </div>
+        </form>
+        <div>
+            <button id="btn-newUser" class="btn btn-primary d-flex" data-bs-toggle="modal" data-bs-target="#modal-add">
+                <i class="bi bi-person-plus-fill me-2"></i>nouveau
+            </button>
+        </div>
     </div>
 </div>
 <?php
