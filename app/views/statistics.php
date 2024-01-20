@@ -13,11 +13,11 @@ ob_start();
                 <i class="bi bi-bar-chart-line me-2"></i>Graphique
             </button>
         </li>
-        <li class="nav-item" role="presentation">
+        <!-- <li class="nav-item" role="presentation">
             <button class="nav-link " data-bs-toggle="tab" data-bs-target="#tab-tab1" type="button" role="tab" aria-selected="true">
                 <i class="bi bi-table me-2"></i>Tableau
             </button>
-        </li>
+        </li> -->
     </ul>
     <div class="tab-content d-flex justify-content-center pt-2">
         <div class="tab-pane fade show active w-75" id="tab-graph1" role="tabpanel">

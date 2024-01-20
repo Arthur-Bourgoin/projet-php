@@ -5,7 +5,7 @@ use app\models\ {
     DoctorModel,
     UserModel
 };
-use App\Class\Feedback;
+use app\class\Feedback;
 
 class RdvController {
 

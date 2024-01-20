@@ -7,8 +7,7 @@ class Database {
     const DB = "projetPHP";
     const LOGIN = "root";
     const PWD = "iutinfoROOT";
-    //const LOGIN = "userProjectPHP";
-    //const PWD = "pwdproject";
+    
     private static $linkpdo = null;
 
     private function __construct() {}

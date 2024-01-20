@@ -1,11 +1,3 @@
-CREATE USER 'userProjectPHP'@'localhost' IDENTIFIED BY 'pwdproject';
-
-CREATE DATABASE projectPHP;
-
-GRANT ALL PRIVILEGES ON projectPHP.* TO 'userProjectPHP'@'localhost';
-
-USE projectPHP;
-
 CREATE TABLE Medecin(
    idMedecin INT AUTO_INCREMENT,
    photo VARCHAR(100),
@@ -80,12 +72,3 @@ BEGIN
 END;
 //
 DELIMITER ;
-
--- SELECT * FROM RDV
---                  WHERE idMedecin = 2
---                     AND 
---                     ( ("2024-01-31 10:30" >= dateHeureDebut AND "2024-01-31 10:30" < dateHeureDebut + INTERVAL duree MINUTE) OR
---                     ("2024-01-31 10:30" <= dateHeureDebut AND "2024-01-311 10:30" + INTERVAL 60 MINUTE >= dateHeureDebut) OR
---                     ("2024-01-31 10:30" <= dateHeureDebut AND "2024-01-31 10:30" + INTERVAL 60 MINUTE >= dateHeureDebut + INTERVAL duree MINUTE) )
-
-
